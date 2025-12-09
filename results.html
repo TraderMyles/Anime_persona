@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Anime Personality Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1e1e1e 0, #050505 60%);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding-top: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+      color: #7fffb1;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    p.subtitle {
+      font-size: 1.15rem;
+      color: #d7d7d7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 1.6s forwards;
+    }
+
+    .result-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 32px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 40px;
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.1);
+      opacity: 0;
+      animation: fadeInUp 1.2s forwards;
+    }
+
+    .result-title {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .result-desc {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e6e6e6;
+      margin-bottom: 20px;
+    }
+
+    .score-breakdown {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #bdbdbd;
+      line-height: 1.8;
+    }
+
+    .restart-btn {
+      margin-top: 20px;
+      padding: 14px 40px;
+      font-size: 1.2rem;
+      background: #19c36b;
+      color: #04110a;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+
+    .restart-btn:hover {
+      background: #20d879;
+      transform: translateY(-2px);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+
+  <script>
+    function loadResults() {
+      let scores = JSON.parse(localStorage.getItem("scores")) || {
+        hxh: 0,
+        op: 0,
+        dbz: 0
+      };
+
+      let { hxh, op, dbz } = scores;
+
+      // Determine top score fairly
+      let highest = Math.max(hxh, op, dbz);
+      let result = "";
+
+      if (hxh === highest) result = "hxh";
+      else if (op === highest) result = "op";
+      else result = "dbz";
+
+      const titleEl = document.getElementById("result-title");
+      const descEl = document.getElementById("result-description");
+      const scoreEl = document.getElementById("score-breakdown");
+
+      if (result === "hxh") {
+        titleEl.textContent = "Hunter x Hunter Personality";
+        descEl.textContent =
+          "You are intuitive, introspective, emotionally deep, and naturally curious. " +
+          "You look beneath the surface, pick up hidden energies, and move through life " +
+          "with intelligence, empathy, and quiet power.";
+      }
+
+      if (result === "op") {
+        titleEl.textContent = "One Piece Personality";
+        descEl.textContent =
+          "You are bold, loyal, adventurous, and full of heart. You value dreams, freedom, " +
+          "and the people who sail with you. You lift others up with your passion and optimism.";
+      }
+
+      if (result === "dbz") {
+        titleEl.textContent = "Dragon Ball Z Personality";
+        descEl.textContent =
+          "You are driven, powerful, determined, and growth-oriented. You chase evolution, " +
+          "push limits, and become unstoppable when protecting those you care about.";
+      }
+    }
+
+    function restartQuiz() {
+      localStorage.removeItem("scores");
+      window.location.href = "index.html";
+    }
+
+    window.onload = loadResults;
+  </script>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>Your Anime Personality</h1>
+  <p class="subtitle">Based on your journey, here is your true anime type.</p>
+
+  <div class="result-card">
+    <div id="result-title" class="result-title">Loading...</div>
+    <div id="result-description" class="result-desc"></div>
+    <div id="score-breakdown" class="score-breakdown"></div>
+  </div>
+
+  <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+</div>
+
+</body>
+</html>

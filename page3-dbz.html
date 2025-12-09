@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anime Quiz — Dragon Ball Z Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #3d1f07 0, #0a0604 60%);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffb26b;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #ffd7b0;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    .question-block {
+      margin-bottom: 40px;
+      background: rgba(0,0,0,0.35);
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .question {
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: #ffcf9c;
+    }
+
+    button.option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 10px 0;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 10px;
+      background: #5a2e10;
+      color: #ffe6cf;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    button.option:hover {
+      background: #7a4218;
+    }
+
+    button.selected {
+      background: #ffa95e !important;
+      color: #3d1f07 !important;
+      border-color: #ff8f3c !important;
+    }
+
+    .next-btn {
+      margin-top: 50px;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.2rem;
+      background: #ff8f3c;
+      color: #2d1102;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+
+    .next-btn:hover {
+      background: #ffa95e;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <script>
+    // Load or create scoring object
+    if (!localStorage.getItem("scores")) {
+      localStorage.setItem("scores",
+        JSON.stringify({ hxh: 0, op: 0, dbz: 0 })
+      );
+    }
+
+    const selectedAnswers = {};
+
+    function selectOption(questionId, button, type, points) {
+      let scores = JSON.parse(localStorage.getItem("scores"));
+
+      // Undo previous answer
+      const prev = selectedAnswers[questionId];
+      if (prev) {
+        scores[prev.type] -= prev.points;
+      }
+
+      // Add new points
+      scores[type] += points;
+
+      // Save changes
+      selectedAnswers[questionId] = { type, points };
+      localStorage.setItem("scores", JSON.stringify(scores));
+
+      // Remove highlight from others
+      const group = document.querySelectorAll("[data-question='" + questionId + "']");
+      group.forEach(btn => btn.classList.remove("selected"));
+
+      // Highlight selected
+      button.classList.add("selected");
+    }
+  </script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Dragon Ball Z Personality</h1>
+  <p class="subtitle">Final 3 questions — your anime personality is almost revealed.</p>
+
+  <!-- QUESTION 7 -->
+  <div class="question-block">
+    <div class="question">7. How do you respond when life challenges you?</div>
+
+    <button data-question="q7" class="option"
+      onclick="selectOption('q7', this, 'dbz', 3)">
+      I push myself harder and use the challenge to level up.
+    </button>
+
+    <button data-question="q7" class="option"
+      onclick="selectOption('q7', this, 'op', 2)">
+      I keep my spirits high — nothing can break my will.
+    </button>
+
+    <button data-question="q7" class="option"
+      onclick="selectOption('q7', this, 'hxh', 2)">
+      I study the situation and adapt my strategy.
+    </button>
+  </div>
+
+  <!-- QUESTION 8 -->
+  <div class="question-block">
+    <div class="question">8. Which best describes your inner strength?</div>
+
+    <button data-question="q8" class="option"
+      onclick="selectOption('q8', this, 'dbz', 3)">
+      Raw determination — I’ll break every limit.
+    </button>
+
+    <button data-question="q8" class="option"
+      onclick="selectOption('q8', this, 'op', 2)">
+      Emotional resilience — nothing keeps me down for long.
+    </button>
+
+    <button data-question="q8" class="option"
+      onclick="selectOption('q8', this, 'hxh', 2)">
+      Emotional intelligence — I understand myself deeply.
+    </button>
+  </div>
+
+  <!-- QUESTION 9 -->
+  <div class="question-block">
+    <div class="question">9. What do you fight for the most?</div>
+
+    <button data-question="q9" class="option"
+      onclick="selectOption('q9', this, 'dbz', 3)">
+      Protecting the people I care about and becoming my strongest self.
+    </button>
+
+    <button data-question="q9" class="option"
+      onclick="selectOption('q9', this, 'op', 2)">
+      Freedom, legacy, and making my dreams real.
+    </button>
+
+    <button data-question="q9" class="option"
+      onclick="selectOption('q9', this, 'hxh', 3)">
+      Understanding myself and uncovering life’s deeper meaning.
+    </button>
+  </div>
+
+  <!-- NEXT PAGE -->
+  <a href="results.html">
+    <button class="next-btn">View Your Results →</button>
+  </a>
+
+</div>
+
+</body>
+</html>

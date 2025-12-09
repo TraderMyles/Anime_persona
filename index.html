@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Anime Personality Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #202530 0, #050608 45%, #020309 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      padding: 40px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #d5d5d5;
+      margin-bottom: 24px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      padding: 14px 38px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #19c36b;
+      color: #04110a;
+      box-shadow: 0 12px 30px rgba(20, 230, 120, 0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+      text-decoration: none;
+    }
+
+    .hero-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(20, 230, 120, 0.55);
+      background: #20d879;
+    }
+
+    .hero-button:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 0 8px 24px rgba(20, 230, 120, 0.4);
+    }
+
+    /* WORLD CARDS */
+    .worlds {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 8px;
+    }
+
+    .world-card {
+      border-radius: 18px;
+      padding: 26px 20px 30px;
+      background: #0d0f10;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .world-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.45;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .world-card--hxh::before {
+      background: radial-gradient(circle at top, rgba(49, 255, 143, 0.25) 0, transparent 60%);
+    }
+
+    .world-card--op::before {
+      background: radial-gradient(circle at top, rgba(255, 210, 97, 0.28) 0, transparent 60%);
+    }
+
+    .world-card--dbz::before {
+      background: radial-gradient(circle at top, rgba(255, 140, 66, 0.28) 0, transparent 60%);
+    }
+
+    .world-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .world-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+
+    .world-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .world-title--hxh {
+      color: #7fffb1;
+    }
+
+    .world-title--op {
+      color: #ffd766;
+    }
+
+    .world-title--dbz {
+      color: #ffb26b;
+    }
+
+    .world-description {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #e3e3e3;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #a0a3aa;
+      opacity: 0.85;
+    }
+
+    footer span {
+      opacity: 0.8;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .worlds {
+        grid-template-columns: 1fr;
+      }
+
+      .world-card {
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <h1 class="hero-title">What Type of Anime Person Are You?</h1>
+      <p class="hero-subtitle">
+        Answer 9 questions and discover your anime personality.
+      </p>
+
+      <!-- ✅ UPDATED BUTTON THAT GOES TO PAGE 1 -->
+      <a href="page1-hxh.html" class="hero-button">Start Quiz</a>
+    </section>
+
+    <!-- WORLD CARDS -->
+    <section class="worlds" aria-label="Anime personality types">
+      <article class="world-card world-card--hxh">
+        <div class="world-inner">
+          <p class="world-label">Type One</p>
+          <h2 class="world-title world-title--hxh">Hunter x Hunter Type</h2>
+          <p class="world-description">
+            Thoughtful, curious, and emotionally deep. 
+            You’re drawn to nature, animals, and hidden layers in people.
+            You read the room, feel things intensely, and grow through quiet inner evolution.
+          </p>
+        </div>
+      </article>
+
+      <article class="world-card world-card--op">
+        <div class="world-inner">
+          <p class="world-label">Type Two</p>
+          <h2 class="world-title world-title--op">One Piece Type</h2>
+          <p class="world-description">
+            Free-spirited, loyal, and adventurous.
+            You care deeply about your friends, your dreams, and the journey itself.
+            You’re the type who laughs loud, loves hard, and always keeps moving forward.
+          </p>
+        </div>
+      </article>
+
+      <article class="world-card world-card--dbz">
+        <div class="world-inner">
+          <p class="world-label">Type Three</p>
+          <h2 class="world-title world-title--dbz">Dragon Ball Z Type</h2>
+          <p class="world-description">
+            Driven, competitive, and growth-obsessed.
+            You’re always trying to level up, protect the people you care about,
+            and turn pressure into power. You live for pushing past your limits.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span>© 2025 Anime Quiz Project</span>
+    </footer>
+  </div>
+</body>
+</html>

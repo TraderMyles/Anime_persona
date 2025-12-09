@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anime Quiz — One Piece Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #3a2d0b 0, #0b0a07 60%);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffd766;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #f4e3b2;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    .question-block {
+      margin-bottom: 40px;
+      background: rgba(0,0,0,0.35);
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .question {
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: #ffe7a8;
+    }
+
+    button.option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 10px 0;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 10px;
+      background: #4c3b0f;
+      color: #fff6d5;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    button.option:hover {
+      background: #6a5417;
+    }
+
+    button.selected {
+      background: #ffd35f !important;
+      color: #3a2605 !important;
+      border-color: #d8a93c !important;
+    }
+
+    .next-btn {
+      margin-top: 50px;
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.2rem;
+      background: #febf42;
+      color: #2d1e03;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+
+    .next-btn:hover {
+      background: #ffd35f;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <script>
+    // Load or create scoring object
+    if (!localStorage.getItem("scores")) {
+      localStorage.setItem("scores",
+        JSON.stringify({ hxh: 0, op: 0, dbz: 0 })
+      );
+    }
+
+    // Store selected answers on this page
+    const selectedAnswers = {};
+
+    function selectOption(questionId, button, type, points) {
+      let scores = JSON.parse(localStorage.getItem("scores"));
+
+      // Undo previous answer
+      const prev = selectedAnswers[questionId];
+      if (prev) {
+        scores[prev.type] -= prev.points;
+      }
+
+      // Add new answer
+      scores[type] += points;
+
+      // Save
+      selectedAnswers[questionId] = { type, points };
+      localStorage.setItem("scores", JSON.stringify(scores));
+
+      // Update button highlighting
+      const group = document.querySelectorAll("[data-question='" + questionId + "']");
+      group.forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+  </script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1>One Piece Personality</h1>
+  <p class="subtitle">Continue your journey — answer the next 3 questions.</p>
+
+  <!-- QUESTION 4 -->
+  <div class="question-block">
+    <div class="question">4. What do you value most in a friend?</div>
+
+    <button data-question="q4" class="option"
+      onclick="selectOption('q4', this, 'op', 3)">
+      Loyalty — someone who will never abandon you, no matter what.
+    </button>
+
+    <button data-question="q4" class="option"
+      onclick="selectOption('q4', this, 'hxh', 2)">
+      Emotional depth — someone who understands your layers.
+    </button>
+
+    <button data-question="q4" class="option"
+      onclick="selectOption('q4', this, 'dbz', 1)">
+      Someone who pushes you to become stronger.
+    </button>
+  </div>
+
+  <!-- QUESTION 5 -->
+  <div class="question-block">
+    <div class="question">5. What kind of goal motivates you the most?</div>
+
+    <button data-question="q5" class="option"
+      onclick="selectOption('q5', this, 'op', 3)">
+      A dream or purpose bigger than myself.
+    </button>
+
+    <button data-question="q5" class="option"
+      onclick="selectOption('q5', this, 'hxh', 2)">
+      Understanding the truth about the world and myself.
+    </button>
+
+    <button data-question="q5" class="option"
+      onclick="selectOption('q5', this, 'dbz', 2)">
+      Becoming powerful enough to protect others.
+    </button>
+  </div>
+
+  <!-- QUESTION 6 -->
+  <div class="question-block">
+    <div class="question">6. How do you react to new adventures or challenges?</div>
+
+    <button data-question="q6" class="option"
+      onclick="selectOption('q6', this, 'op', 3)">
+      I rush in with excitement — everything is an opportunity.
+    </button>
+
+    <button data-question="q6" class="option"
+      onclick="selectOption('q6', this, 'hxh', 2)">
+      I analyze the situation quietly before choosing a path.
+    </button>
+
+    <button data-question="q6" class="option"
+      onclick="selectOption('q6', this, 'dbz', 2)">
+      I charge in ready to fight if needed.
+    </button>
+  </div>
+
+  <!-- NEXT PAGE -->
+  <a href="page3-dbz.html">
+    <button class="next-btn">Next: Dragon Ball Z Questions →</button>
+  </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anime Quiz — Hunter x Hunter Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1c3328 0, #0b0f0d 60%);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #7fffb1;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #d1f7df;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    .question-block {
+      margin-bottom: 40px;
+      background: rgba(0,0,0,0.35);
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .question {
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: #b7ffcf;
+    }
+
+    button.option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 10px 0;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border-radius: 10px;
+      background: #143b2a;
+      color: #cfffec;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    button.option:hover {
+      background: #1c523b;
+    }
+
+    button.selected {
+      background: #20d879 !important;
+      color: black !important;
+      border-color: #0a7d45 !important;
+    }
+
+    .next-btn {
+      margin-top: 50px;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.2rem;
+      background: #19c36b;
+      color: #04110a;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+
+    .next-btn:hover {
+      background: #20d879;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <script>
+    // Load scoring system
+    if (!localStorage.getItem("scores")) {
+      localStorage.setItem("scores",
+        JSON.stringify({ hxh: 0, op: 0, dbz: 0 })
+      );
+    }
+
+    function selectOption(questionId, button, type, points) {
+      const scores = JSON.parse(localStorage.getItem("scores"));
+
+      // Remove previous selection points if changed
+      const prev = selectedAnswers[questionId];
+      if (prev) {
+        scores[prev.type] -= prev.points;
+      }
+
+      // Add new points
+      scores[type] += points;
+
+      // Save
+      selectedAnswers[questionId] = { type, points };
+      localStorage.setItem("scores", JSON.stringify(scores));
+
+      // Update button highlights
+      const group = document.querySelectorAll("[data-question='" + questionId + "']");
+      group.forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+
+    // Store selected answers
+    const selectedAnswers = {};
+  </script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Hunter x Hunter Personality</h1>
+  <p class="subtitle">Answer the questions below to continue your journey.</p>
+
+  <!-- QUESTION 1 -->
+  <div class="question-block">
+    <div class="question">1. How do you react to difficult family relationships?</div>
+
+    <button data-question="q1" class="option"
+      onclick="selectOption('q1', this, 'hxh', 3)">
+      It pushes me to grow emotionally and understand myself.
+    </button>
+
+    <button data-question="q1" class="option"
+      onclick="selectOption('q1', this, 'op', 1)">
+      I try to escape from it mentally or distract myself.
+    </button>
+
+    <button data-question="q1" class="option"
+      onclick="selectOption('q1', this, 'dbz', 1)">
+      I just power forward and ignore the emotional part.
+    </button>
+  </div>
+
+  <!-- QUESTION 2 -->
+  <div class="question-block">
+    <div class="question">2. What kind of companion would you choose for an adventure?</div>
+
+    <button data-question="q2" class="option"
+      onclick="selectOption('q2', this, 'hxh', 3)">
+      An animal companion that understands my energy.
+    </button>
+
+    <button data-question="q2" class="option"
+      onclick="selectOption('q2', this, 'op', 2)">
+      A loyal crew of friends who support me.
+    </button>
+
+    <button data-question="q2" class="option"
+      onclick="selectOption('q2', this, 'dbz', 2)">
+      A mentor or rival who pushes me to improve.
+    </button>
+  </div>
+
+  <!-- QUESTION 3 -->
+  <div class="question-block">
+    <div class="question">3. What motivates your journey through life?</div>
+
+    <button data-question="q3" class="option"
+      onclick="selectOption('q3', this, 'hxh', 3)">
+      Curiosity and understanding the deeper meaning behind things.
+    </button>
+
+    <button data-question="q3" class="option"
+      onclick="selectOption('q3', this, 'op', 2)">
+      Freedom, adventure, and exploring the world.
+    </button>
+
+    <button data-question="q3" class="option"
+      onclick="selectOption('q3', this, 'dbz', 2)">
+      Becoming the strongest or best version of myself.
+    </button>
+  </div>
+
+  <a href="page2-op.html">
+    <button class="next-btn">Next: One Piece Questions →</button>
+  </a>
+
+</div>
+
+</body>
+</html>
